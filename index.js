@@ -84,7 +84,7 @@ Item.find({}).then(async (foundItems) => {
     res.render("list", { listTitle: "Today", newListItems: foundItems });
   }
 }).catch(err => console.log(err));
-
+};
 
 
 app.get("/:customListName", function (req, res) {
