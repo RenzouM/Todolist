@@ -1,25 +1,47 @@
 //jshint esversion:6
 
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
 const PORT = process.env.PORT || 27017;
+mongoose.set("strictQuery", false);
 const { log } = require("console");
-const app = express();
 const _ = require("lodash");
 
-app.set("view engine", "ejs");
+const app = express();
 
+app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+
+mongoose.set("strictQuery", false);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
 
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb+srv://admin-renzo:4512302940@cluster0.ztsshph.mongodb.net/todolistDB", {
-    useNewUrlParser: true,
-  });
+  await mongoose.connect(
+    "mongodb+srv://admin-renzo:4512302940@cluster0.ztsshph.mongodb.net/todolistDB",
+    {
+      useNewUrlParser: true,
+    }
+  );
   console.log("Sever Connected");
 }
 
@@ -93,7 +115,7 @@ app.post("/", function (req, res) {
   const itemName = req.body.newItem;
   const listName = req.body.list;
   const item = new Item({
-  name: itemName,
+    name: itemName,
   });
 
   if (listName === "Today") {
@@ -138,6 +160,6 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(27017, function () {
+app.listen(PORT, function () {
   console.log("Server started on port 27017");
 });
