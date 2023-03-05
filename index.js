@@ -80,12 +80,12 @@ app.get("/", function (req, res) {
         } else {
           console.log("Succesfully added to DB");
         }
-      }});
+      });
       res.redirect("/");
     } else {
       res.render("list", { listTitle: "Today", newListItems: foundItems });
     }
-  });
+  }});
 });
 
 app.get("/:customListName", function (req, res) {
