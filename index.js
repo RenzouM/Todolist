@@ -33,15 +33,15 @@ connectDB().then(() => {
 
 main().catch((err) => console.log(err));
 
-async function main() {
-  await mongoose.connect(
-    "mongodb+srv://admin-renzo:4512302940@cluster0.ztsshph.mongodb.net/todolistDB",
-    {
-      useNewUrlParser: true,
-    }
-  );
-  console.log("Sever Connected");
-}
+// async function main() {
+//   await mongoose.connect(
+//     "mongodb+srv://admin-renzo:4512302940@cluster0.ztsshph.mongodb.net/todolistDB",
+//     {
+//       useNewUrlParser: true,
+//     }
+//   );
+//   console.log("Sever Connected");
+// }
 
 const itemsSchema = {
   name: String,
@@ -151,8 +151,6 @@ app.post("/delete", function (req, res) {
     );
   }
 });
-
-
 
 
 app.get("/:");
