@@ -87,26 +87,28 @@ Item.find({}).then(async (foundItems) => {
 });
 
 
-app.get("/:customListName", function (req, res) {
+app.get("/:customListName", async (req, res) => {
   const customListName = _.capitalize(req.params.customListName);
 
-  List.findOne({ name: customListName }, function (err, foundList) {
-    if (!err) {
-      if (!foundList) {
-        const list = new List({
-          name: customListName,
-          items: defaultItems,
-        });
-        list.save();
-        res.redirect("/" + customListName);
-      } else {
-        res.render("list", {
-          listTitle: foundList.name,
-          newListItems: foundList.items,
-        });
-      }
+  try {
+    const foundList = await List.findOne({ name: customListName });
+
+    if (!foundList) {
+      const list = new List({
+        name: customListName,
+        items: defaultItems,
+      });
+      await list.save();
+      res.redirect("/" + customListName);
+    } else {
+      res.render("list", {
+        listTitle: foundList.name,
+        newListItems: foundList.items,
+      });
     }
-  });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post("/", function (req, res) {
