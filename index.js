@@ -69,7 +69,7 @@ const List = mongoose.model("List", listSchema);
 app.get("/", function (req, res) {
 
 
-  Item.find({}, function (err, foundItems) {
+  Item.find({}, async (err, foundItems) {
     if (foundItems.length === 0) {
     Item.insertMany(defaultItems, function (err) {
         if (err) {
@@ -159,14 +159,14 @@ app.get("/about", function (req, res) {
 
 app.all('*', (req,res) => {
   res.json({"every thing":"is awesome"})
-})
+});
 
 //Connect to the database before listening
 connectDB().then(() => {
   app.listen(PORT, () => {
       console.log("listening for requests");
-  })
-})
+  });
+});
 
 
 // app.listen(PORT, function () {
