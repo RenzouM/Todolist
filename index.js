@@ -24,11 +24,7 @@ const connectDB = async () => {
   }
 };
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-      console.log("listening for requests");
-  })
-})
+
 
 
 // main().catch((err) => console.log(err));
@@ -160,6 +156,13 @@ app.get("/:");
 app.get("/about", function (req, res) {
   res.render("about");
 });
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
+
 
 app.listen(PORT, function () {
   console.log("Server started on port 27017");
