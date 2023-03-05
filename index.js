@@ -24,11 +24,7 @@ const connectDB = async () => {
   }
 };
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-      console.log("listening for requests");
-  })
-})
+
 
 main().catch((err) => console.log(err));
 
@@ -150,6 +146,13 @@ app.post("/delete", function (req, res) {
     );
   }
 });
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
+
 
 app.get("/:");
 
