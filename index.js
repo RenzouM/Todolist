@@ -169,8 +169,3 @@ connectDB().then(() => {
       console.log("listening for requests");
   });
 });
-
-
-// app.listen(PORT, function () {
-//   console.log("Server started on port 27017");
-// });
