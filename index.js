@@ -1,5 +1,5 @@
 //jshint esversion:6
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -52,25 +52,23 @@ const listSchema = {
 const List = mongoose.model("List", listSchema);
 
 app.get("/", function (req, res) {
-
-// const Item = mongoose.model('Item');
-
-Item.find({}).then(async (foundItems) => {
-  if (foundItems.length === 0) {
-  Item.insertMany(defaultItems, function (err) {
-      if (err) {
-        console.log(err);
+  Item.find({})
+    .then(async (foundItems) => {
+      if (foundItems.length === 0) {
+        Item.insertMany(defaultItems, function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Succesfully added to DB");
+          }
+        });
+        res.redirect("/");
       } else {
-        console.log("Succesfully added to DB");
-      };
-    });
-    res.redirect("/");
-  } else {
-    res.render("list", { listTitle: "Today", newListItems: foundItems });
-  }
-}).catch(err => console.log(err));
+        res.render("list", { listTitle: "Today", newListItems: foundItems });
+      }
+    })
+    .catch((err) => console.log(err));
 });
-
 
 app.get("/:customListName", async (req, res) => {
   const customListName = _.capitalize(req.params.customListName);
@@ -120,7 +118,7 @@ app.post("/delete", function (req, res) {
   const listName = req.body.listName;
 
   if (listName === "Today") {
-    Item.findByIdAndRemove(checkedItemID, function (err) {
+    Item.findByIdAndRemove(checkedItemID).exec(function (err) {
       if (!err) {
         console.log("Succesfully deleted item!");
       }
@@ -130,15 +128,14 @@ app.post("/delete", function (req, res) {
     List.findOneAndUpdate(
       { name: listName },
       { $pull: { items: { _id: checkedItemID } } },
-      function (err) {
-        if (!err) {
-          res.redirect("/" + listName);
-        }
+      { new: true }
+    ).exec(function (err) {
+      if (!err) {
+        res.redirect("/" + listName);
       }
-    );
+    });
   }
 });
-
 
 app.get("/:");
 
@@ -146,13 +143,13 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.all('*', (req,res) => {
-  res.json({"every thing":"is awesome"})
+app.all("*", (req, res) => {
+  res.json({ "every thing": "is awesome" });
 });
 
 //Connect to the database before listening
 connectDB().then(() => {
   app.listen(PORT, () => {
-      console.log("listening for requests");
+    console.log("listening for requests");
   });
 });
