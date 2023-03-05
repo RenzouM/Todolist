@@ -31,7 +31,7 @@ connectDB().then(() => {
 })
 
 
-main().catch((err) => console.log(err));
+// main().catch((err) => console.log(err));
 
 // async function main() {
 //   await mongoose.connect(
