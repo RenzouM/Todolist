@@ -157,6 +157,11 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
+app.all('*', (req,res) => {
+  res.json({"every thing":"is awesome"})
+})
+
+//Connect to the database before listening
 connectDB().then(() => {
   app.listen(PORT, () => {
       console.log("listening for requests");
@@ -164,6 +169,6 @@ connectDB().then(() => {
 })
 
 
-app.listen(PORT, function () {
-  console.log("Server started on port 27017");
-});
+// app.listen(PORT, function () {
+//   console.log("Server started on port 27017");
+// });
