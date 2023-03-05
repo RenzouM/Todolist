@@ -8,7 +8,7 @@ const _ = require("lodash");
 
 const app = express();
 const PORT = process.env.PORT || 27017;
-mongoose.set("strictQuery", true);
+mongoose.set("strictQuery", false);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
