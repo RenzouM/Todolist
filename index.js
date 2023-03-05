@@ -120,7 +120,7 @@ app.post("/delete", function (req, res) {
   const listName = req.body.listName;
 
   if (listName === "Today") {
-    Item.findByIdAndRemove(checkedItemID).exec(function (err) {
+    Item.findByIdAndRemove(checkedItemID).then(function (err) {
       if (!err) {
         console.log("Succesfully deleted item!");
       }
@@ -131,13 +131,12 @@ app.post("/delete", function (req, res) {
       { name: listName },
       { $pull: { items: { _id: checkedItemID } } },
       { new: true }
-    ).exec(function (err) {
+    ).then(function (err) {
       if (!err) {
         res.redirect("/" + listName);
       }
     });
   }
-});
 
 
 app.get("/:");
