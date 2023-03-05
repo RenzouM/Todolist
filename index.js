@@ -75,7 +75,7 @@ app.get("/", function (req, res) {
 
   Item.find({}, function (err, foundItems) {
     if (foundItems.length === 0) {
-      const insertItem = await Item.insertMany(defaultItems, function (err) {
+    Item.insertMany(defaultItems, function (err) {
         if (err) {
           console.log(err);
         } else {
@@ -83,10 +83,10 @@ app.get("/", function (req, res) {
         };
       });
       res.redirect("/");
-     else {
+    } else {
       res.render("list", { listTitle: "Today", newListItems: foundItems });
     }
-  }});
+  });
 });
 
 app.get("/:customListName", function (req, res) {
