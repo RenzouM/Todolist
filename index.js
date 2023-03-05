@@ -16,28 +16,13 @@ app.use(express.static("public"));
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    const conn = await mongoose.connect(MONGO_URI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
     process.exit(1);
   }
 };
-
-
-
-
-main().catch((err) => console.log(err));
-
-async function main() {
-  await mongoose.connect(
-    "mongodb+srv://admin-renzo:4512302940@cluster0.ztsshph.mongodb.net/todolistDB",
-    {
-      useNewUrlParser: true,
-    }
-  );
-  console.log("Sever Connected");
-}
 
 const itemsSchema = {
   name: String,
