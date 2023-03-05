@@ -134,9 +134,9 @@ app.post("/delete", function (req, res) {
     ).then(function (err) {
       if (!err) {
         res.redirect("/" + listName);
-      }
+      };
     });
-  }};
+  };
 
 
 app.get("/:");
@@ -154,4 +154,5 @@ connectDB().then(() => {
   app.listen(PORT, () => {
       console.log("listening for requests");
   });
+});
 });
