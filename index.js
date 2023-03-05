@@ -25,11 +25,11 @@ const connectDB = async () => {
   }
 };
 
-// connectDB().then(() => {
-//   app.listen(PORT, () => {
-//       console.log("listening for requests");
-//   })
-// })
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
 
 main().catch((err) => console.log(err));
 
