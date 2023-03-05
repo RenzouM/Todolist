@@ -1,20 +1,20 @@
+//jshint esversion:6
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 27017;
+const bodyParser = require("body-parser");
 mongoose.set("strictQuery", false);
 const { log } = require("console");
 const _ = require("lodash");
 
 const app = express();
+const PORT = process.env.PORT || 27017;
+mongoose.set("strictQuery", false);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-
-mongoose.set("strictQuery", false);
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);
