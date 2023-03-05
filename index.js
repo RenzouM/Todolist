@@ -1,9 +1,8 @@
 //jshint esversion:6
-require("dotenv").config();
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-mongoose.set("strictQuery", false);
 const { log } = require("console");
 const _ = require("lodash");
 
