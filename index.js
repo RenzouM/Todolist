@@ -57,7 +57,7 @@ app.get("/", function (req, res) {
 
 Item.find({}).then(async (foundItems) => {
   if (foundItems.length === 0) {
-  Item.insertMany(defaultItems, function (err) {
+  Item.insertMany(defaultItems).then(function (err) {
       if (err) {
         console.log(err);
       } else {
