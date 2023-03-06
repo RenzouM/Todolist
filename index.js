@@ -125,9 +125,10 @@ app.post("/delete", function (req, res) {
     Item.findByIdAndRemove(checkedItemID).then(function (err) {
       if (!err) {
         console.log("Succesfully deleted item!");
+        res.redirect("/");
       }
     });
-    res.redirect("/");
+
   } else {
     List.findOneAndUpdate(
       { name: listName },
