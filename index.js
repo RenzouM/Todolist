@@ -107,7 +107,7 @@ app.post("/", function (req, res) {
     item.save();
     res.redirect("/");
   } else {
-    List.findOne({ name: listName }).then(function (error, foundList) {
+    List.findOne({ name: listName }, function (error, foundList) {
       foundList.items.push(item);
       foundList.save();
       res.redirect("/" + listName);
